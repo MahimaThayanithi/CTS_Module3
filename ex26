@@ -1,12 +1,30 @@
-import java.util.Scanner;
+class MyThread implements Runnable {
+    private String threadName;
 
-public class BinaryToDecimal {
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Enter binary number: ");
-        String binary = scanner.nextLine();
+    public MyThread(String name) {
+        this.threadName = name;
+    }
 
-        int decimal = Integer.parseInt(binary, 2);
-        System.out.println("Decimal: " + decimal);
+    @Override
+    public void run() {
+        for (int i = 1; i <= 5; i++) {
+            System.out.println(threadName + " is running: message " + i);
+            try {
+                Thread.sleep(500); // Pause for half a second
+            } catch (InterruptedException e) {
+                System.out.println(threadName + " interrupted.");
+            }
+        }
     }
 }
+
+public class ThreadExample {
+    public static void main(String[] args) {
+        Thread thread1 = new Thread(new MyThread("Thread 1"));
+        Thread thread2 = new Thread(new MyThread("Thread 2"));
+
+        thread1.start();
+        thread2.start();
+    }
+}
+
