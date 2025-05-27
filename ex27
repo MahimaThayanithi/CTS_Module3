@@ -1,12 +1,23 @@
-import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
-public class DecimalToBinary {
+public class LambdaSortExample {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Enter decimal number: ");
-        int decimal = scanner.nextInt();
+        List<String> fruits = new ArrayList<>();
+        fruits.add("Banana");
+        fruits.add("Apple");
+        fruits.add("Mango");
+        fruits.add("Orange");
+        fruits.add("Grapes");
 
-        String binary = Integer.toBinaryString(decimal);
-        System.out.println("Binary: " + binary);
+        // Sort using lambda expression (ascending order)
+        Collections.sort(fruits, (s1, s2) -> s1.compareTo(s2));
+
+        System.out.println("Sorted list:");
+        for (String fruit : fruits) {
+            System.out.println(fruit);
+        }
     }
 }
+
