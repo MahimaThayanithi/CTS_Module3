@@ -1,26 +1,40 @@
-import java.util.Scanner;
+// Define the Car class
+class Car {
+    // Attributes
+    String make;
+    String model;
+    int year;
 
-public class PrimeCheck {
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Enter a number: ");
-        int num = scanner.nextInt();
-        boolean isPrime = true;
-
-        if (num <= 1) {
-            isPrime = false;
-        } else {
-            for (int i = 2; i <= Math.sqrt(num); i++) {
-                if (num % i == 0) {
-                    isPrime = false;
-                    break;
-                }
-            }
-        }
-
-        if (isPrime)
-            System.out.println("Prime number");
-        else
-            System.out.println("Not a prime number");
+    // Constructor
+    Car(String make, String model, int year) {
+        this.make = make;
+        this.model = model;
+        this.year = year;
     }
+
+    // Method to display car details
+    void displayDetails() {
+        System.out.println("Car Make  : " + make);
+        System.out.println("Car Model : " + model);
+        System.out.println("Car Year  : " + year);
+        System.out.println();
+    }
+}
+
+// Main class to test the Car class
+public class Main {
+    public static void main(String[] args) {
+        // Create objects of Car
+        Car car1 = new Car("Toyota", "Camry", 2022);
+        Car car2 = new Car("Honda", "Civic", 2023);
+
+        // Call the method
+        System.out.println("Car 1 Details:");
+        car1.displayDetails();
+
+        System.out.println("Car 2 Details:");
+        car2.displayDetails();
+    }
+}
+
 }
