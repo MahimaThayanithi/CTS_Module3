@@ -1,0 +1,13 @@
+public class TypeCastingExample {
+    public static void main(String[] args) {
+        double doubleValue = 9.78;
+        int intValue = (int) doubleValue; // Narrowing casting
+        System.out.println("Double value: " + doubleValue);
+        System.out.println("Converted to int: " + intValue);
+
+        int intVal = 10;
+        double doubleVal = intVal; // Widening casting
+        System.out.println("Int value: " + intVal);
+        System.out.println("Converted to double: " + doubleVal);
+    }
+}
