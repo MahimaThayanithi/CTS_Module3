@@ -1,13 +1,35 @@
 import java.util.Scanner;
 
-public class MultiplicationTable {
+// Step 1: Define the custom exception
+class InvalidAgeException extends Exception {
+    public InvalidAgeException(String message) {
+        super(message);
+    }
+}
+
+public class AgeValidator {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        System.out.print("Enter a number: ");
-        int num = scanner.nextInt();
 
-        for (int i = 1; i <= 10; i++) {
-            System.out.println(num + " x " + i + " = " + (num * i));
+        try {
+            // Step 2: Get user's age
+            System.out.print("Enter your age: ");
+            int age = scanner.nextInt();
+
+            // Step 3: Check age and throw custom exception
+            if (age < 18) {
+                throw new InvalidAgeException("Age must be 18 or older to proceed.");
+            }
+
+            System.out.println("Access granted. You are eligible!");
+
+        } catch (InvalidAgeException e) {
+            // Step 4: Handle the custom exception
+            System.out.println("Access denied: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Invalid input. Please enter a valid number.");
+        } finally {
+            scanner.close();
         }
     }
 }
