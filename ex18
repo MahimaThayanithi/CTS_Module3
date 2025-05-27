@@ -1,25 +1,31 @@
-import java.util.Scanner;
+// Base class
+class Animal {
+    // Method in base class
+    void makeSound() {
+        System.out.println("Some generic animal sound");
+    }
+}
 
-public class PrimeInRange {
+// Subclass
+class Dog extends Animal {
+    // Overriding the method
+    @Override
+    void makeSound() {
+        System.out.println("Bark");
+    }
+}
+
+// Main class to test
+public class Main {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Enter start: ");
-        int start = scanner.nextInt();
-        System.out.print("Enter end: ");
-        int end = scanner.nextInt();
+        // Create an Animal object
+        Animal genericAnimal = new Animal();
+        System.out.print("Animal sound: ");
+        genericAnimal.makeSound();
 
-        System.out.println("Prime numbers:");
-        for (int i = start; i <= end; i++) {
-            boolean isPrime = true;
-            if (i <= 1) continue;
-            for (int j = 2; j <= Math.sqrt(i); j++) {
-                if (i % j == 0) {
-                    isPrime = false;
-                    break;
-                }
-            }
-            if (isPrime)
-                System.out.print(i + " ");
-        }
+        // Create a Dog object
+        Dog myDog = new Dog();
+        System.out.print("Dog sound: ");
+        myDog.makeSound();
     }
 }
