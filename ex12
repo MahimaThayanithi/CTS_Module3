@@ -1,16 +1,29 @@
-import java.util.Scanner;
+public class MethodOverloadingExample {
 
-public class Factorial {
+    // Method to add two integers
+    public static int add(int a, int b) {
+        return a + b;
+    }
+
+    // Method to add two doubles
+    public static double add(double a, double b) {
+        return a + b;
+    }
+
+    // Method to add three integers
+    public static int add(int a, int b, int c) {
+        return a + b + c;
+    }
+
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Enter a number: ");
-        int n = scanner.nextInt();
-        long factorial = 1;
+        // Calling and displaying the results of each overloaded method
+        int sum1 = add(5, 10);                // Two integers
+        double sum2 = add(3.5, 2.8);           // Two doubles
+        int sum3 = add(1, 2, 3);               // Three integers
 
-        for (int i = 1; i <= n; i++) {
-            factorial *= i;
-        }
-
-        System.out.println("Factorial: " + factorial);
+        System.out.println("Sum of two integers: " + sum1);
+        System.out.println("Sum of two doubles: " + sum2);
+        System.out.println("Sum of three integers: " + sum3);
     }
 }
+
