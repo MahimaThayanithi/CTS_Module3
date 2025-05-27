@@ -1,22 +1,31 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
-public class LCM {
+public class StudentList {
     public static void main(String[] args) {
+        ArrayList<String> studentNames = new ArrayList<>();
         Scanner scanner = new Scanner(System.in);
-        System.out.print("Enter two numbers: ");
-        int a = scanner.nextInt();
-        int b = scanner.nextInt();
-        int gcd = 1, lcm;
+        String input;
 
-        int x = a, y = b;
-        while (y != 0) {
-            int temp = y;
-            y = x % y;
-            x = temp;
+        System.out.println("Enter student names (type 'done' to finish):");
+
+        while (true) {
+            System.out.print("Enter name: ");
+            input = scanner.nextLine();
+
+            if (input.equalsIgnoreCase("done")) {
+                break;
+            }
+
+            studentNames.add(input);
         }
-        gcd = x;
-        lcm = (a * b) / gcd;
 
-        System.out.println("LCM is: " + lcm);
+        System.out.println("\nStudent names entered:");
+        for (String name : studentNames) {
+            System.out.println(name);
+        }
+
+        scanner.close();
     }
 }
+
