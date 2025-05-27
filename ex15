@@ -1,20 +1,21 @@
 import java.util.Scanner;
 
-public class ArmstrongNumber {
+public class StringReversal {
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        System.out.print("Enter a 3-digit number: ");
-        int num = scanner.nextInt(), original = num, sum = 0;
 
-        while (num != 0) {
-            int digit = num % 10;
-            sum += digit * digit * digit;
-            num /= 10;
-        }
+        // Prompt user for a string
+        System.out.print("Enter a string: ");
+        String input = scanner.nextLine();
 
-        if (sum == original)
-            System.out.println("Armstrong Number");
-        else
-            System.out.println("Not an Armstrong Number");
+        // Using StringBuilder to reverse the string
+        StringBuilder reversed = new StringBuilder(input);
+        reversed.reverse();
+
+        // Display the reversed string
+        System.out.println("Reversed string: " + reversed.toString());
+
+        scanner.close();
     }
 }
