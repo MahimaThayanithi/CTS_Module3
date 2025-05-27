@@ -1,30 +1,25 @@
-import java.util.Scanner;
+module com.utils {
+    exports com.utils;
+}
 
-public class LinearSearch {
+package com.utils;
+
+public class Utility {
+    public static String greet(String name) {
+        return "Hello, " + name;
+    }
+}
+
+module com.greetings {
+    requires com.utils;
+}
+
+package com.greetings;
+
+import com.utils.Utility;
+
+public class Main {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Enter size of array: ");
-        int n = scanner.nextInt();
-        int[] arr = new int[n];
-
-        System.out.println("Enter elements:");
-        for (int i = 0; i < n; i++)
-            arr[i] = scanner.nextInt();
-
-        System.out.print("Enter element to search: ");
-        int key = scanner.nextInt();
-
-        int index = -1;
-        for (int i = 0; i < n; i++) {
-            if (arr[i] == key) {
-                index = i;
-                break;
-            }
-        }
-
-        if (index == -1)
-            System.out.println("Element not found.");
-        else
-            System.out.println("Element found at index: " + index);
+        System.out.println(Utility.greet("Mahima"));
     }
 }
