@@ -1,20 +1,22 @@
-import java.util.Scanner;
+public class PatternMatchingSwitchExample {
 
-public class ArrayAverage {
+    public static void checkObjectType(Object obj) {
+        String result = switch (obj) {
+            case Integer i -> "It's an Integer with value: " + i;
+            case String s -> "It's a String with value: \"" + s + "\"";
+            case Double d -> "It's a Double with value: " + d;
+            case null -> "Object is null";
+            default -> "Unknown type: " + obj.getClass().getSimpleName();
+        };
+
+        System.out.println(result);
+    }
+
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Enter size of array: ");
-        int n = scanner.nextInt();
-        int[] arr = new int[n];
-        double sum = 0;
-
-        System.out.println("Enter elements:");
-        for (int i = 0; i < n; i++) {
-            arr[i] = scanner.nextInt();
-            sum += arr[i];
-        }
-
-        double average = sum / n;
-        System.out.println("Average: " + average);
+        checkObjectType(42);
+        checkObjectType("Hello");
+        checkObjectType(3.14);
+        checkObjectType(true);
+        checkObjectType(null);
     }
 }
