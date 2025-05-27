@@ -1,22 +1,48 @@
-import java.util.Scanner;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
-public class MaxElement {
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Enter size of array: ");
-        int n = scanner.nextInt();
-        int[] arr = new int[n];
+public class StudentDAO {
+    private static final String URL = "jdbc:sqlite:students.db";
 
-        System.out.println("Enter elements:");
-        for (int i = 0; i < n; i++)
-            arr[i] = scanner.nextInt();
+    // Method to insert a new student record
+    public boolean insertStudent(String name, int age) {
+        String sql = "INSERT INTO students(name, age) VALUES(?, ?)";
 
-        int max = arr[0];
-        for (int i = 1; i < n; i++) {
-            if (arr[i] > max)
-                max = arr[i];
+        try (Connection conn = DriverManager.getConnection(URL);
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, name);
+            pstmt.setInt(2, age);
+
+            int affectedRows = pstmt.executeUpdate();
+            return affectedRows > 0;  // true if insert succeeded
+
+        } catch (SQLException e) {
+            System.out.println("Insert error: " + e.getMessage());
+            return false;
         }
-
-        System.out.println("Maximum element: " + max);
     }
+
+    // Method to update student's age by ID
+    public boolean updateStudentAge(int id, int newAge) {
+        String sql = "UPDATE students SET age = ? WHERE id = ?";
+
+        try (Connection conn = DriverManager.getConnection(URL);
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1, newAge);
+            pstmt.setInt(2, id);
+
+            int affectedRows = pstmt.executeUpdate();
+            return affectedRows > 0;  // true if update succeeded
+
+        } catch (SQLException e) {
+            System.out.println("Update error: " + e.getMessage());
+            return false;
+        }
+    }
+
+    
 }
