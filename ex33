@@ -1,22 +1,40 @@
-import java.util.Scanner;
+import java.sql.*;
 
-public class MinElement {
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Enter size of array: ");
-        int n = scanner.nextInt();
-        int[] arr = new int[n];
+public class TransactionExample {
+    private static final String URL = "jdbc:sqlite:bank.db";
 
-        System.out.println("Enter elements:");
-        for (int i = 0; i < n; i++)
-            arr[i] = scanner.nextInt();
+    public static void transferMoney(int fromAccount, int toAccount, double amount) {
+        String debitSQL = "UPDATE accounts SET balance = balance - ? WHERE id = ?";
+        String creditSQL = "UPDATE accounts SET balance = balance + ? WHERE id = ?";
 
-        int min = arr[0];
-        for (int i = 1; i < n; i++) {
-            if (arr[i] < min)
-                min = arr[i];
+        try (Connection conn = DriverManager.getConnection(URL)) {
+            conn.setAutoCommit(false); // start transaction
+
+            try (PreparedStatement debitStmt = conn.prepareStatement(debitSQL);
+                 PreparedStatement creditStmt = conn.prepareStatement(creditSQL)) {
+
+                debitStmt.setDouble(1, amount);
+                debitStmt.setInt(2, fromAccount);
+                debitStmt.executeUpdate();
+
+                creditStmt.setDouble(1, amount);
+                creditStmt.setInt(2, toAccount);
+                creditStmt.executeUpdate();
+
+                conn.commit();
+                System.out.println("Transfer successful");
+            } catch (SQLException e) {
+                conn.rollback();
+                System.out.println("Transfer failed, rolled back");
+                e.printStackTrace();
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
+    }
 
-        System.out.println("Minimum element: " + min);
+    public static void main(String[] args) {
+        transferMoney(1, 2, 100.0);
     }
 }
