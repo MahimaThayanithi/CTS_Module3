@@ -1,18 +1,44 @@
-import java.util.Scanner;
+iimport java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
 
-public class ReverseArray {
+public class JdbcSQLiteExample {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Enter size of array: ");
-        int n = scanner.nextInt();
-        int[] arr = new int[n];
+        String url = "jdbc:sqlite:students.db";  // Path to your SQLite DB file
 
-        System.out.println("Enter elements:");
-        for (int i = 0; i < n; i++)
-            arr[i] = scanner.nextInt();
+        try {
+            // Load SQLite JDBC driver (optional for modern JDBC)
+            Class.forName("org.sqlite.JDBC");
 
-        System.out.print("Reversed array: ");
-        for (int i = n - 1; i >= 0; i--)
-            System.out.print(arr[i] + " ");
+            // Create connection
+            Connection conn = DriverManager.getConnection(url);
+
+            // Create statement
+            Statement stmt = conn.createStatement();
+
+            // Execute query
+            String sql = "SELECT * FROM students";
+            ResultSet rs = stmt.executeQuery(sql);
+
+            // Iterate through results
+            System.out.println("ID\tName\tAge");
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String name = rs.getString("name");
+                int age = rs.getInt("age");
+                System.out.println(id + "\t" + name + "\t" + age);
+            }
+
+            // Close resources
+            rs.close();
+            stmt.close();
+            conn.close();
+
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 }
+
